@@ -14,25 +14,26 @@ import java.util.List;
 @Table(name = "product")
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String name;
+	private String name;
 
-    private String description;
+	private String description;
 
-    private int stock;
+	private int stock;
 
-    private String type;
+	private String type;
 
-    private Float price;
+	private Float price;
 
-    private String image;
+	private String image;
 
-    @OneToMany(mappedBy = "product")
-    private List<PurchaseDetails> purchaseDetails;
+	@OneToMany(mappedBy = "product")
+	private List<PurchaseDetails> purchaseDetails;
 
-    @OneToMany(mappedBy = "product")
-    private List<CartDetails> cartDetails;
+	@OneToMany(mappedBy = "product")
+	private List<CartDetails> cartDetails;
+
 }

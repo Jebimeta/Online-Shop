@@ -12,16 +12,17 @@ import java.util.Optional;
 @Repository
 public interface TokenJpaRepository extends JpaRepository<Token, Long> {
 
-    @Query("""
-                SELECT t
-                FROM Token t
-                INNER JOIN Customer c ON t.customer.id = c.id
-                WHERE t.customer.id = :customerId
-                AND t.loggedOut = false
-            """)
-    List<Token> findAllAccessTokenByUser(@Param("customerId") Long customerId);
+	@Query("""
+			    SELECT t
+			    FROM Token t
+			    INNER JOIN Customer c ON t.customer.id = c.id
+			    WHERE t.customer.id = :customerId
+			    AND t.loggedOut = false
+			""")
+	List<Token> findAllAccessTokenByUser(@Param("customerId") Long customerId);
 
-    Optional<Token> findByAccessToken(String token);
+	Optional<Token> findByAccessToken(String token);
 
-    Optional<Token> findByRefreshToken(String token);
+	Optional<Token> findByRefreshToken(String token);
+
 }

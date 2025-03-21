@@ -20,77 +20,78 @@ import java.util.List;
 @Table(name = "customer")
 public class Customer implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String username;
+	@Column(nullable = false, unique = true)
+	private String username;
 
-    private String password;
+	private String password;
 
-    private String name;
+	private String name;
 
-    private String surname;
+	private String surname;
 
-    private String surname2;
+	private String surname2;
 
-    private String address;
+	private String address;
 
-    private String city;
+	private String city;
 
-    private String province;
+	private String province;
 
-    private String region;
+	private String region;
 
-    private String postalCode;
+	private String postalCode;
 
-    private String email;
+	private String email;
 
-    private String phone;
+	private String phone;
 
-    private Boolean status;
+	private Boolean status;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Cart> cart;
+	@OneToMany(mappedBy = "customer")
+	private List<Cart> cart;
 
-    @OneToMany(mappedBy = "customer")
-    @JsonIgnore
-    private List<Purchase> purchases;
+	@OneToMany(mappedBy = "customer")
+	@JsonIgnore
+	private List<Purchase> purchases;
 
-    private String verificationToken;
+	private String verificationToken;
 
-    @OneToMany(mappedBy = "customer")
-    @JsonIgnore
-    private List<Token> tokens;
+	@OneToMany(mappedBy = "customer")
+	@JsonIgnore
+	private List<Token> tokens;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RolEnum rol;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private RolEnum rol;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(){
-        return List.of(new SimpleGrantedAuthority(rol.name()));
-    }
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority(rol.name()));
+	}
 
-    @Override
-    public boolean isAccountNonExpired(){
-        return true;
-    }
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isAccountNonLocked(){
-        return true;
-    }
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
-    @Override
-    public boolean isCredentialsNonExpired(){
-        return true;
-    }
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isEnabled(){
-        return true;
-    }
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
 }

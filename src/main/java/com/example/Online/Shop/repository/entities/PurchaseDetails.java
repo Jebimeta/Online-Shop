@@ -11,19 +11,20 @@ import lombok.Setter;
 @Table(name = "order_details")
 public class PurchaseDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private  Purchase purchase;
+	@ManyToOne
+	@JoinColumn(name = "order_id")
+	private Purchase purchase;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+	@ManyToOne
+	@JoinColumn(name = "product_id")
+	private Product product;
 
-    private Float price;
+	private Float price;
 
-    private Integer quantity;
+	private Integer quantity;
+
 }

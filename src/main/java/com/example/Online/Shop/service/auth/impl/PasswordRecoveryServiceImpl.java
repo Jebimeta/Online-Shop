@@ -22,11 +22,13 @@ public class PasswordRecoveryServiceImpl implements PasswordRecoveryService {
     private final CustomerVerificationTokenService customerVerificationTokenService;
 
     @Override
+    // Envia un correo para la recuperación de la contraseña
     public EmailResponse sendEmailToRecoveryPassword(PasswordResetRequest passwordResetRequest) {
         return mailSenderService.sendPasswoerdRecoveryEmail(passwordResetRequest.getEmail());
     }
 
     @Override
+    // Confirma la recuperación de contraseña
     public Customer confirmRecoveryPassword(PasswordResetConfirmRequest passwordResetConfirmRequest) {
         Customer customer = customerVerificationTokenService.findCustomerByVerification(passwordResetConfirmRequest.getVerificationToken());
         customer.setPassword(passwordResetConfirmRequest.getNewPassword());

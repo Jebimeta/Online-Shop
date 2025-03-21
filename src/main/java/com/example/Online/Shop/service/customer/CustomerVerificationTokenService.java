@@ -4,9 +4,10 @@ import com.example.Online.Shop.repository.entities.Customer;
 
 public interface CustomerVerificationTokenService {
 
-    String generateVerificationToken(Customer customer);
+	String generateVerificationToken(Customer customer);
 
-    Customer verifyCustomerByToken(String token);
+	Customer verifyCustomerByToken(String token);
 
-    Customer findCustomerByVerification(String token);
+	Customer findCustomerByVerification(String token);
+
 }

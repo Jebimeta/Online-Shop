@@ -15,33 +15,35 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomerUpdateServiceImpl implements CustomerUpdateService {
 
-    private final CustomerJpaRepository customerJpaRepository;
+	private final CustomerJpaRepository customerJpaRepository;
 
-    private final PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 
-    @Override
-    @Transactional
-    public Customer updateCustomer(Customer customerUpdateRequest) {
-        Optional<Customer> updateCustomer = customerJpaRepository.findByEmail(customerUpdateRequest.getEmail());
-        if(updateCustomer.isPresent()){
-            Customer findedCustomer = updateCustomer.get();
-            findedCustomer.setName(customerUpdateRequest.getName());
-            findedCustomer.setPassword(customerUpdateRequest.getPassword());
-            findedCustomer.setSurname(customerUpdateRequest.getSurname());
-            findedCustomer.setSurname2(customerUpdateRequest.getSurname2());
-            findedCustomer.setAddress(customerUpdateRequest.getAddress());
-            findedCustomer.setProvince(customerUpdateRequest.getProvince());
-            findedCustomer.setRegion(customerUpdateRequest.getRegion());
-            findedCustomer.setEmail(customerUpdateRequest.getEmail());
-            findedCustomer.setPhone(customerUpdateRequest.getPhone());
-            findedCustomer.setStatus(customerUpdateRequest.getStatus());
-            findedCustomer.setRol(findedCustomer.getRol());
-            findedCustomer.setPurchases(findedCustomer.getPurchases());
-            findedCustomer.setTokens(findedCustomer.getTokens());
-            return customerJpaRepository.save(findedCustomer);
-        } else {
-            throw new UsernameNotFoundException("Aquí va un AppErrorCode");
-        }
+	@Override
+	@Transactional
+	public Customer updateCustomer(Customer customerUpdateRequest) {
+		Optional<Customer> updateCustomer = customerJpaRepository.findByEmail(customerUpdateRequest.getEmail());
+		if (updateCustomer.isPresent()) {
+			Customer findedCustomer = updateCustomer.get();
+			findedCustomer.setName(customerUpdateRequest.getName());
+			findedCustomer.setPassword(customerUpdateRequest.getPassword());
+			findedCustomer.setSurname(customerUpdateRequest.getSurname());
+			findedCustomer.setSurname2(customerUpdateRequest.getSurname2());
+			findedCustomer.setAddress(customerUpdateRequest.getAddress());
+			findedCustomer.setProvince(customerUpdateRequest.getProvince());
+			findedCustomer.setRegion(customerUpdateRequest.getRegion());
+			findedCustomer.setEmail(customerUpdateRequest.getEmail());
+			findedCustomer.setPhone(customerUpdateRequest.getPhone());
+			findedCustomer.setStatus(customerUpdateRequest.getStatus());
+			findedCustomer.setRol(findedCustomer.getRol());
+			findedCustomer.setPurchases(findedCustomer.getPurchases());
+			findedCustomer.setTokens(findedCustomer.getTokens());
+			return customerJpaRepository.save(findedCustomer);
+		}
+		else {
+			throw new UsernameNotFoundException("Aquí va un AppErrorCode");
+		}
 
-    }
+	}
+
 }

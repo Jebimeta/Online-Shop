@@ -4,6 +4,6 @@ import com.example.Online.Shop.repository.entities.Customer;
 
 public interface CustomerUpdateService {
 
-    Customer updateCustomer(Customer customer);
+	Customer updateCustomer(Customer customer);
 
 }

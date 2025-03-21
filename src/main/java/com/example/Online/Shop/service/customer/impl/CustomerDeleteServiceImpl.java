@@ -16,21 +16,24 @@ import java.util.Optional;
 @Slf4j
 public class CustomerDeleteServiceImpl implements CustomerDeleteService {
 
-    private final CustomerJpaRepository customerJpaRepository;
+	private final CustomerJpaRepository customerJpaRepository;
 
-    @Override
-    @Transactional
-    public Void deleteCustomerByUsername(String username) {
-        Optional<Customer> customerEntity = customerJpaRepository.findByUsername(username);
+	@Override
+	@Transactional
+	public Void deleteCustomerByUsername(String username) {
+		Optional<Customer> customerEntity = customerJpaRepository.findByUsername(username);
 
-        if(customerEntity.isPresent()){
-            Customer customer = customerEntity.get();
-            customer.setStatus(false); // En vez de eliminar el usuario, cambiamos su status a false y lo marca como usuario inactivo
-            customerJpaRepository.save(customer);
-            log.info("User {} has been deleted", username);
-            return null;
-        } else {
-            throw new UsernameNotFoundException("User not found");
-        }
-    }
+		if (customerEntity.isPresent()) {
+			Customer customer = customerEntity.get();
+			customer.setStatus(false); // En vez de eliminar el usuario, cambiamos su
+										// status a false y lo marca como usuario inactivo
+			customerJpaRepository.save(customer);
+			log.info("User {} has been deleted", username);
+			return null;
+		}
+		else {
+			throw new UsernameNotFoundException("User not found");
+		}
+	}
+
 }

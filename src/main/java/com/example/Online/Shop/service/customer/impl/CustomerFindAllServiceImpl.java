@@ -15,14 +15,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerFindAllServiceImpl implements CustomerFindAllService {
 
-    private final CustomerJpaRepository customerJpaRepository;
+	private final CustomerJpaRepository customerJpaRepository;
 
-    @Override
-    @Transactional
-    public List<Customer> findAllCustomers() {
-        log.info("Init - CustomerFindAllServiceImpl -> findAllCustomers");
-        List<Customer> foundCustomers = customerJpaRepository.findAll();
-        log.info("End - CustomerFindAllServiceImpl -> findAllCustomers");
-        return foundCustomers;
-    }
+	@Override
+	@Transactional
+	public List<Customer> findAllCustomers() {
+		log.info("Init - CustomerFindAllServiceImpl -> findAllCustomers");
+		List<Customer> foundCustomers = customerJpaRepository.findAll();
+		log.info("End - CustomerFindAllServiceImpl -> findAllCustomers");
+		return foundCustomers;
+	}
+
 }

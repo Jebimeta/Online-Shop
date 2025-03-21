@@ -4,6 +4,6 @@ import com.example.Online.Shop.repository.entities.Customer;
 
 public interface CustomerQueryService {
 
-    Customer getCustomerByUsername(String username);
+	Customer getCustomerByUsername(String username);
 
 }

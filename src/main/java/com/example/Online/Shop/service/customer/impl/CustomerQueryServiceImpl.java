@@ -14,16 +14,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomerQueryServiceImpl implements CustomerQueryService {
 
-    private final CustomerJpaRepository customerJpaRepository;
+	private final CustomerJpaRepository customerJpaRepository;
 
-    @Override
-    @Transactional
-    public Customer getCustomerByUsername(String username) {
-        Optional<Customer> customerEntity = customerJpaRepository.findByUsername(username);
-        if (customerEntity.isPresent()){
-            return customerEntity.get();
-        } else {
-            throw new UsernameNotFoundException("User not Found");
-        }
-    }
+	@Override
+	@Transactional
+	public Customer getCustomerByUsername(String username) {
+		Optional<Customer> customerEntity = customerJpaRepository.findByUsername(username);
+		if (customerEntity.isPresent()) {
+			return customerEntity.get();
+		}
+		else {
+			throw new UsernameNotFoundException("User not Found");
+		}
+	}
+
 }

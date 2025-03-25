@@ -133,4 +133,9 @@ public class AuthenticationService {
     private String throwuserNotAuthenticatedException(){
         throw new BusinessException(AppErrorCode.ERROR_NOT_AUTHENTICATED);
     }
+
+    public Customer findUserByTokenAccess(){
+        CustomerResponse customerResponse = getAuthenticatedUser();
+        return customerQueryService.getCustomerByUsername(customerResponse.getUsername());
+    }
 }

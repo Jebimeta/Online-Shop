@@ -2,19 +2,18 @@ package com.example.Online.Shop.repository.entities;
 
 import com.example.Online.Shop.repository.enums.StatusEnum;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.mapstruct.EnumMapping;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Builder
+@Data
 @Getter
 @Setter
 @Entity
-@RequiredArgsConstructor
 @Table(name = "purchase")
 public class Purchase {
 

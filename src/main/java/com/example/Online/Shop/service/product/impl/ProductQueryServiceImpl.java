@@ -15,13 +15,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductQueryServiceImpl implements ProductQueryService {
 
-    private final ProductJpaRepository productJpaRepository;
+	private final ProductJpaRepository productJpaRepository;
 
-    @Override
-    public Product findProductById(Long id) {
-        log.info("Init - ProductQueryServiceImpl -> findProductById()");
-        Optional<Product>optionalProduct = productJpaRepository.findById(id);
-        log.info("End - ProductQueryServiceImpl -> findProductById()");
-        return optionalProduct.orElseThrow();
-    }
+	@Override
+	public Product findProductById(Long id) {
+		log.info("Init - ProductQueryServiceImpl -> findProductById()");
+		Optional<Product> optionalProduct = productJpaRepository.findById(id);
+		log.info("End - ProductQueryServiceImpl -> findProductById()");
+		return optionalProduct.orElseThrow();
+	}
+
 }

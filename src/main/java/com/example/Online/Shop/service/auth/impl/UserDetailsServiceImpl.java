@@ -18,14 +18,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final CustomerJpaRepository customerJpaRepository;
+	private final CustomerJpaRepository customerJpaRepository;
 
-    @Override
-    // Carga los detalles de un usuario desde el repositoriopara poder utilizarloen el procueso de autenticación y autorización
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Customer customer = customerJpaRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + customer.getRol().name()));
+	@Override
+	// Carga los detalles de un usuario desde el repositoriopara poder utilizarloen el
+	// procueso de autenticación y autorización
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Customer customer = customerJpaRepository.findByUsername(username)
+			.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+		List<GrantedAuthority> authorities = Collections
+			.singletonList(new SimpleGrantedAuthority("ROLE_" + customer.getRol().name()));
 
-        return new User(customer.getUsername(), customer.getPassword(), authorities);
-    }
+		return new User(customer.getUsername(), customer.getPassword(), authorities);
+	}
+
 }

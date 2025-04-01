@@ -4,6 +4,6 @@ import com.example.Online.Shop.repository.entities.Product;
 
 public interface ProductQueryService {
 
-    Product findProductById(Long id);
+	Product findProductById(Long id);
 
 }

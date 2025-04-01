@@ -11,13 +11,15 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CartDeleteServiceImpl implements CartDeleteService {
-    private final CartJpaRepository cartJpaRepository;
 
-    @Override
-    public String deleteCartById(Long id) {
-        Cart cart = cartJpaRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(AppErrorCode.ERROR_CART_NOT_FOUND));
-        cartJpaRepository.delete(cart);
-        return "El carrito ha sido eliminado con éxito";
-    }
+	private final CartJpaRepository cartJpaRepository;
+
+	@Override
+	public String deleteCartById(Long id) {
+		Cart cart = cartJpaRepository.findById(id)
+			.orElseThrow(() -> new BusinessException(AppErrorCode.ERROR_CART_NOT_FOUND));
+		cartJpaRepository.delete(cart);
+		return "El carrito ha sido eliminado con éxito";
+	}
+
 }

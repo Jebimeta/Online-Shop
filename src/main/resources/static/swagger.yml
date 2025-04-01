@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Rita Rouge Online Shop
+  title: Online Shop
   description: |-
     Aplicación que se encarga de habilitar endpoints para el consumo REST de la base de datos en la tienda online "Rita Rouge".
   termsOfService: http://swagger.io/terms/

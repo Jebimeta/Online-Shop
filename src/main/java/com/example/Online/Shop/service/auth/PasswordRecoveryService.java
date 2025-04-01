@@ -7,7 +7,8 @@ import com.onlineshop.domain.vo.PasswordResetRequest;
 
 public interface PasswordRecoveryService {
 
-    public EmailResponse sendEmailToRecoveryPassword(PasswordResetRequest passwordResetRequest);
+	public EmailResponse sendEmailToRecoveryPassword(PasswordResetRequest passwordResetRequest);
 
-    public Customer confirmRecoveryPassword(PasswordResetConfirmRequest passwordResetConfirmRequest);
+	public Customer confirmRecoveryPassword(PasswordResetConfirmRequest passwordResetConfirmRequest);
+
 }

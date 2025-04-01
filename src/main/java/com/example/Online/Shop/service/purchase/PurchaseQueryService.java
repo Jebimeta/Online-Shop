@@ -4,6 +4,6 @@ import com.example.Online.Shop.repository.entities.Purchase;
 
 public interface PurchaseQueryService {
 
-    Purchase findPurchaseById(Long orderId);
+	Purchase findPurchaseById(Long orderId);
 
 }

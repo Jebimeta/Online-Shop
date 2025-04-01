@@ -16,19 +16,20 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductDeleteServiceImpl implements ProductDeleteService {
 
-    private final ProductJpaRepository productJpaRepository;
+	private final ProductJpaRepository productJpaRepository;
 
-    private final ImageService imageService;
+	private final ImageService imageService;
 
-    @Override
-    public Void deleteProductById(Long id) {
-        log.info("Init - ProductDeleteServiceImpl -> deleteProductById()");
-        Optional<Product> product = productJpaRepository.findById(id);
-        if (product.isPresent()){
-            imageService.deleteImage(product.get().getImage());
-            productJpaRepository.delete(product.get());
-            log.info("End - ProductDeleteServiceImpl -> deleteProductById() - Product deleted");
-        }
-        return null;
-    }
+	@Override
+	public Void deleteProductById(Long id) {
+		log.info("Init - ProductDeleteServiceImpl -> deleteProductById()");
+		Optional<Product> product = productJpaRepository.findById(id);
+		if (product.isPresent()) {
+			imageService.deleteImage(product.get().getImage());
+			productJpaRepository.delete(product.get());
+			log.info("End - ProductDeleteServiceImpl -> deleteProductById() - Product deleted");
+		}
+		return null;
+	}
+
 }

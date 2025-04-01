@@ -14,16 +14,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductFindAllServiceImpl implements ProductsFindAllService {
 
-    private final ProductJpaRepository productJpaRepository;
+	private final ProductJpaRepository productJpaRepository;
 
-    @Override
-    public List<Product> findAllProducts() {
-        log.info("Init - ProductFindAllServiceImpl -> findAllProducts()");
-        List<Product> obtainedProducts = productJpaRepository.findAll();
-        for(Product product : obtainedProducts){
-            log.debug("Product - {}", product.getName());
-        }
-        log.info("End - ProductFindAllServiceImpl -> findAllProducts()");
-        return obtainedProducts;
-    }
+	@Override
+	public List<Product> findAllProducts() {
+		log.info("Init - ProductFindAllServiceImpl -> findAllProducts()");
+		List<Product> obtainedProducts = productJpaRepository.findAll();
+		for (Product product : obtainedProducts) {
+			log.debug("Product - {}", product.getName());
+		}
+		log.info("End - ProductFindAllServiceImpl -> findAllProducts()");
+		return obtainedProducts;
+	}
+
 }

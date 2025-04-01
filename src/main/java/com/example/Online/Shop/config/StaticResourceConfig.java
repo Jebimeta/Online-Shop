@@ -10,12 +10,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class StaticResourceConfig implements WebMvcConfigurer {
 
-    private final OnlineShopProperties properties;
+	private final OnlineShopProperties properties;
 
-    @Override
-    // Con este recurso manejamos imagenes cuando reciba peticiones de los productos o imagenes
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/app/static/products/images/**", "/products/images/**")
-                .addResourceLocations("file:/app/static/products/images/", properties.getUploadProperties().getLocalDirectory());
-    }
+	@Override
+	// Con este recurso manejamos imagenes cuando reciba peticiones de los productos o
+	// imagenes
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/app/static/products/images/**", "/products/images/**")
+			.addResourceLocations("file:/app/static/products/images/",
+					properties.getUploadProperties().getLocalDirectory());
+	}
+
 }

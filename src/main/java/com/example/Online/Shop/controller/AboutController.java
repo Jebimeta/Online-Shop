@@ -16,12 +16,13 @@ import javax.validation.constraints.Email;
 @RequiredArgsConstructor
 public class AboutController implements AboutApiDelegate {
 
-    private final AboutService aboutService;
+	private final AboutService aboutService;
 
-    @Override
-    public ResponseEntity<EmailResponse> sendEmail(EmailRequest request){
-        log.info("Init - AboutController -> sendEmail()");
-        log.info("End - AboutController -> sendEmail()");
-        return ResponseEntity.ok(aboutService.sendEmail(request));
-    }
+	@Override
+	public ResponseEntity<EmailResponse> sendEmail(EmailRequest request) {
+		log.info("Init - AboutController -> sendEmail()");
+		log.info("End - AboutController -> sendEmail()");
+		return ResponseEntity.ok(aboutService.sendEmail(request));
+	}
+
 }

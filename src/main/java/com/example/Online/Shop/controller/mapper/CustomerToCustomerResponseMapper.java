@@ -8,7 +8,6 @@ import org.springframework.core.convert.converter.Converter;
 @Mapper(componentModel = "spring")
 public interface CustomerToCustomerResponseMapper extends Converter<Customer, CustomerResponse> {
 
-    CustomerResponse convert(Customer source);
+	CustomerResponse convert(Customer source);
 
 }
-

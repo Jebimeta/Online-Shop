@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProductCreateServiceImpl implements ProductCreateService {
 
-    private final ProductJpaRepository productJpaRepository;
+	private final ProductJpaRepository productJpaRepository;
 
+	@Override
+	public Product createProduct(Product product) {
+		log.info("Init - ProductCreateServiceImpl -> createProduct()");
+		Product createdProduct = productJpaRepository.save(product);
+		log.info("End - ProductCreateServiceImpl -> createProduct() - Product: {}", createdProduct.getName());
+		return createdProduct;
+	}
 
-    @Override
-    public Product createProduct(Product product) {
-        log.info("Init - ProductCreateServiceImpl -> createProduct()");
-        Product createdProduct = productJpaRepository.save(product);
-        log.info("End - ProductCreateServiceImpl -> createProduct() - Product: {}", createdProduct.getName());
-        return createdProduct;
-    }
 }

@@ -7,8 +7,8 @@ logging:
 
 spring:
   application:
-    name: '@project.artifactId@'
-    version: '@project.version@'
+    name: 'Online Shop'
+    version: '1.0.0'
   datasource:
     url: jdbc:mysql://localhost:3306/your_database_name
     username: root
@@ -38,7 +38,7 @@ spring:
     default-encoding: UTF-8
   web:
     resources:
-      static-locations: classpath:/static/, file:C:/Users/MiJoze/Desktop/Online Shop/src/main/resources/static/products/images/
+      static-locations: classpath:/static/, file:C:/Users/Jose/Desktop/Online Shop/OnlineShop/src/main/resources/static/products/images
     servlet:
       multipart:
         max-file-size: 10MB
@@ -48,7 +48,7 @@ onlineshop:
   upload:
     directory: src/main/resources/static/products/images/
     baseUrl: http://localhost:8080/products/images/
-    localDirectory: C:/Users/MiJoze/Desktop/Online Shop/src/main/resources/static/products/images/
+    localDirectory: C:/Users/Jose/Desktop/Online Shop/OnlineShop/src/main/resources/static/products/images/
   mail:
     hostEmail: meldewhat@gmail.com
     host: http://localhost:4200
@@ -66,7 +66,7 @@ springdoc:
     description: "Aplication que se encarga de habilitar endpoints para el consumo REST de la base de datos en la tienda online"
     version: "OPENAPI 3.0"
     contact:
-      name: "José Marchena Roldán"
+      name: "Josï¿½ Marchena Roldï¿½n"
       email: "jmarchenaroldan@outlook.es"
     path: /v3/api-docs
   swagger-ui:

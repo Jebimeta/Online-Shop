@@ -21,47 +21,47 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PurchaseCreateServiceImpl implements PurchaseCreateService {
 
-    private final PurchaseJpaRepository purchaseJpaRepository;
+	private final PurchaseJpaRepository purchaseJpaRepository;
 
-    private final CustomerQueryService customerQueryService;
+	private final CustomerQueryService customerQueryService;
 
-    private final AuthenticationService authenticationService;
+	private final AuthenticationService authenticationService;
 
-    @Override
-    @Transactional
-    // Procesa una nueva compra a partir de una solicitud de compra
-    public Purchase makePurchase(PurchaseRequest purchaseRequest) {
-        CustomerResponse customerResponse = authenticationService.getAuthenticatedUser();
-        Customer customer = customerQueryService.getCustomerByUsername(customerResponse.getUsername());
-        Cart cart = getCustomerLatestCart(customer);
-        List<PurchaseDetails> purchaseDetailsList = createPurchaseDetailsList(cart);
-        return savePurchase(purchaseRequest, customer, purchaseDetailsList);
-    }
+	@Override
+	@Transactional
+	// Procesa una nueva compra a partir de una solicitud de compra
+	public Purchase makePurchase(PurchaseRequest purchaseRequest) {
+		CustomerResponse customerResponse = authenticationService.getAuthenticatedUser();
+		Customer customer = customerQueryService.getCustomerByUsername(customerResponse.getUsername());
+		Cart cart = getCustomerLatestCart(customer);
+		List<PurchaseDetails> purchaseDetailsList = createPurchaseDetailsList(cart);
+		return savePurchase(purchaseRequest, customer, purchaseDetailsList);
+	}
 
-    // Obtiene el carrito más reciente del cliente
-    private Cart getCustomerLatestCart(Customer customer){
-        return customer.getCart().get(customer.getCart().size() - 1);
-    }
+	// Obtiene el carrito más reciente del cliente
+	private Cart getCustomerLatestCart(Customer customer) {
+		return customer.getCart().get(customer.getCart().size() - 1);
+	}
 
-    // Convierte los items del carrito a detalles de compra
-    private List<PurchaseDetails> createPurchaseDetailsList(Cart cart){
-        List<PurchaseDetails> purchaseDetailsList = new ArrayList<>();
-        for (CartDetails cartDetails : cart.getCartDetails()){
-            PurchaseDetails purchaseDetails = new PurchaseDetails();
-            purchaseDetails.setId(cartDetails.getId());
-            purchaseDetails.setProduct(cartDetails.getProduct());
-            purchaseDetails.setPrice(cartDetails.getPrice());
-            purchaseDetails.setQuantity(cartDetails.getQuantity());
-            purchaseDetailsList.add(purchaseDetails);
-        }
-        return purchaseDetailsList;
-    }
+	// Convierte los items del carrito a detalles de compra
+	private List<PurchaseDetails> createPurchaseDetailsList(Cart cart) {
+		List<PurchaseDetails> purchaseDetailsList = new ArrayList<>();
+		for (CartDetails cartDetails : cart.getCartDetails()) {
+			PurchaseDetails purchaseDetails = new PurchaseDetails();
+			purchaseDetails.setId(cartDetails.getId());
+			purchaseDetails.setProduct(cartDetails.getProduct());
+			purchaseDetails.setPrice(cartDetails.getPrice());
+			purchaseDetails.setQuantity(cartDetails.getQuantity());
+			purchaseDetailsList.add(purchaseDetails);
+		}
+		return purchaseDetailsList;
+	}
 
-    // Guarda una nueva compra en la base de datos
-    private Purchase savePurchase(PurchaseRequest purchaseRequest, Customer customer,
-                                  List<PurchaseDetails> purchaseDetailsList){
-        return purchaseJpaRepository
-                .save(PurchaseFactory.createPurchaseFromPurchaseRequest(purchaseRequest, customer, purchaseDetailsList));
-    }
+	// Guarda una nueva compra en la base de datos
+	private Purchase savePurchase(PurchaseRequest purchaseRequest, Customer customer,
+			List<PurchaseDetails> purchaseDetailsList) {
+		return purchaseJpaRepository
+			.save(PurchaseFactory.createPurchaseFromPurchaseRequest(purchaseRequest, customer, purchaseDetailsList));
+	}
 
 }

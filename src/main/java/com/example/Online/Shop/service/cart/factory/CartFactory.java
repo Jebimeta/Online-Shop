@@ -23,35 +23,35 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartFactory {
 
-    private final CartFindQueryServiceImpl cartFindQueryServiceImpl;
+	private final CartFindQueryServiceImpl cartFindQueryServiceImpl;
 
-    private final CustomerQueryService customerQueryService;
+	private final CustomerQueryService customerQueryService;
 
-    private final AuthenticationService authenticationService;
+	private final AuthenticationService authenticationService;
 
-    public Cart createCartWithCustomerAndCartDetails(CartRequest cartRequest) {
-        CustomerResponse customerResponse = authenticationService.getAuthenticatedUser();
-        Customer customer = customerQueryService.getCustomerByUsername(customerResponse.getUsername());
+	public Cart createCartWithCustomerAndCartDetails(CartRequest cartRequest) {
+		CustomerResponse customerResponse = authenticationService.getAuthenticatedUser();
+		Customer customer = customerQueryService.getCustomerByUsername(customerResponse.getUsername());
 
-        Cart cart = new Cart();
-        cart.setCustomer(customer);
-        cart.setDate(LocalDateTime.now());
+		Cart cart = new Cart();
+		cart.setCustomer(customer);
+		cart.setDate(LocalDateTime.now());
 
-        List<CartDetails> cartDetailsList = new ArrayList<>();
-        CartDetails cartDetails = new CartDetails();
-        cartDetails.setCart(cart);
+		List<CartDetails> cartDetailsList = new ArrayList<>();
+		CartDetails cartDetails = new CartDetails();
+		cartDetails.setCart(cart);
 
-        for (CartDetailsRequest details : cartRequest.getCartDetails()) {
-            Product product = cartFindQueryServiceImpl.findProductById(details);
-            cartDetails.setProduct(product);
-            cartDetails.setQuantity(details.getQuantity());
-            cartDetails.setPrice(product.getPrice() * details.getQuantity());
+		for (CartDetailsRequest details : cartRequest.getCartDetails()) {
+			Product product = cartFindQueryServiceImpl.findProductById(details);
+			cartDetails.setProduct(product);
+			cartDetails.setQuantity(details.getQuantity());
+			cartDetails.setPrice(product.getPrice() * details.getQuantity());
 
-            cartDetailsList.add(cartDetails);
-        }
-        cart.setCartDetails(cartDetailsList);
+			cartDetailsList.add(cartDetails);
+		}
+		cart.setCartDetails(cartDetailsList);
 
-        return cart;
-    }
+		return cart;
+	}
 
 }

@@ -63,10 +63,11 @@ public class MailSenderService {
 		String content = headerMessage + "<br><br>" + "Usurario: " + senderName + "<br>" + "Número de teléfono: "
 				+ phoneNumber + "<br>" + "<br>" + "Mensaje " + emailMessage;
 
-		try{
-			sendMessage(email,senderName, subject, content);
+		try {
+			sendMessage(email, senderName, subject, content);
 			return EmailResponseFactory.createEmailResponse("The email was sent successfully");
-		} catch(MessagingException | UnsupportedEncodingException e){
+		}
+		catch (MessagingException | UnsupportedEncodingException e) {
 			log.error(e);
 			throw new BusinessException(AppErrorCode.ERROR_SEND_EMAIL);
 		}
@@ -74,7 +75,7 @@ public class MailSenderService {
 	}
 
 	// Envía correo para recuperar clave
-	public EmailResponse sendPasswoerdRecoveryEmail(String email){
+	public EmailResponse sendPasswoerdRecoveryEmail(String email) {
 		String subject = "Restablecer contraseña";
 		String senderName = "Online-Shop";
 
@@ -90,10 +91,11 @@ public class MailSenderService {
 				+ "<h3><a href=\"" + verifyURL + "\" target=\"_self\">CAMBIAR CONTRASEÑA</a></h3>" + "Gracias,<br>"
 				+ senderName + ".";
 
-		try{
+		try {
 			sendMessage(customer.getEmail(), senderName, subject, content);
 			updateService.updateCustomer(customer);
-		} catch (MessagingException | UnsupportedEncodingException e){
+		}
+		catch (MessagingException | UnsupportedEncodingException e) {
 			log.error(e);
 			throw new BusinessException(AppErrorCode.ERROR_SEND_VERIFICATION_EMAIL);
 		}

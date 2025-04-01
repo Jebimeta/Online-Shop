@@ -17,16 +17,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PurchaseDeleteServiceImpl implements PurchaseDeleteService {
 
-    private final PurchaseJpaRepository purchaseJpaRepository;
+	private final PurchaseJpaRepository purchaseJpaRepository;
 
-    @Override
-    @Transactional
-    public String deletePurchaseById(Long orderId) {
-        Optional<Purchase> optionalPurchase = purchaseJpaRepository.findById(orderId);
-        if (optionalPurchase.isPresent()){
-            purchaseJpaRepository.delete(optionalPurchase.get());
-            return "Purchase has been deleted successfully";
-        }
-        throw new BusinessException(AppErrorCode.ERROR_PURCHASE_NOT_FOUND);
-    }
+	@Override
+	@Transactional
+	public String deletePurchaseById(Long orderId) {
+		Optional<Purchase> optionalPurchase = purchaseJpaRepository.findById(orderId);
+		if (optionalPurchase.isPresent()) {
+			purchaseJpaRepository.delete(optionalPurchase.get());
+			return "Purchase has been deleted successfully";
+		}
+		throw new BusinessException(AppErrorCode.ERROR_PURCHASE_NOT_FOUND);
+	}
+
 }

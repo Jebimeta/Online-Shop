@@ -14,16 +14,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AboutService {
 
-    private final MailSenderService mailSenderService;
+	private final MailSenderService mailSenderService;
 
-    // Maneja el envío de correos relacionado con el formulario de "Contáctanos"
-    public EmailResponse sendEmail(EmailRequest request){
-        try {
-            log.info("Sending contact us email");
-            return mailSenderService.receiveContactUs(request.getSenderName(), request.getPhoneNumber(), request.getGender(), request.getEmailMessage());
-        } catch (BusinessException exception){
-            log.error(String.valueOf(AppErrorCode.ERROR_SEND_EMAIL), exception.toString());
-            return EmailResponseFactory.createEmailResponse(AppErrorCode.ERROR_SEND_EMAIL.getMessage());
-        }
-    }
+	// Maneja el envío de correos relacionado con el formulario de "Contáctanos"
+	public EmailResponse sendEmail(EmailRequest request) {
+		try {
+			log.info("Sending contact us email");
+			return mailSenderService.receiveContactUs(request.getSenderName(), request.getPhoneNumber(),
+					request.getGender(), request.getEmailMessage());
+		}
+		catch (BusinessException exception) {
+			log.error(String.valueOf(AppErrorCode.ERROR_SEND_EMAIL), exception.toString());
+			return EmailResponseFactory.createEmailResponse(AppErrorCode.ERROR_SEND_EMAIL.getMessage());
+		}
+	}
+
 }

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface PurchaseFindAllService {
 
-    List<Purchase> findAllPurchases();
+	List<Purchase> findAllPurchases();
 
 }

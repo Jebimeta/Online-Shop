@@ -9,6 +9,7 @@ import org.springframework.core.convert.converter.Converter;
 @Mapper(componentModel = "spring")
 public interface CartDetailsToCartDetailsResponseMapper extends Converter<CartDetails, CartDetailsResponse> {
 
-    @Mapping(source = "product.id", target = "productId")
-    CartDetailsResponse convert(CartDetails source);
+	@Mapping(source = "product.id", target = "productId")
+	CartDetailsResponse convert(CartDetails source);
+
 }

@@ -15,23 +15,23 @@ import java.io.IOException;
 @Mapper(componentModel = "spring")
 public interface ProductRequestToProductMapper extends Converter<ProductRequest, Product> {
 
-    @Mapping(source = "image", target = "image", qualifiedByName = "mapImage")
-    Product convert(ProductRequest source);
+	@Mapping(source = "image", target = "image", qualifiedByName = "mapImage")
+	Product convert(ProductRequest source);
 
-    @Named(value = "mapImage")
-    default String mapImage(Resource imageResource) throws IOException {
-        File image = imageResource.getFile();
-        String uploadDirectory = "src/main/java/resources/static/products/images";
+	@Named(value = "mapImage")
+	default String mapImage(Resource imageResource) throws IOException {
+		File image = imageResource.getFile();
+		String uploadDirectory = "src/main/java/resources/static/products/images";
 
-        File uploadDirectoryFile = new File(uploadDirectory);
-        if (!uploadDirectoryFile.exists()) {
-            uploadDirectoryFile.mkdirs();
-        }
-        String imagePath = uploadDirectory + System.currentTimeMillis() + ".jpg";
-        File destination = new File(imagePath);
-        FileUtils.copyFile(image, destination);
-        return imagePath;
+		File uploadDirectoryFile = new File(uploadDirectory);
+		if (!uploadDirectoryFile.exists()) {
+			uploadDirectoryFile.mkdirs();
+		}
+		String imagePath = uploadDirectory + System.currentTimeMillis() + ".jpg";
+		File destination = new File(imagePath);
+		FileUtils.copyFile(image, destination);
+		return imagePath;
 
-    }
+	}
 
 }

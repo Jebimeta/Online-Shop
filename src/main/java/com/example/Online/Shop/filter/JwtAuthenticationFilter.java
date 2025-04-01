@@ -22,74 +22,79 @@ import java.io.IOException;
 // Verifica y valida tokens JWT en el encabezado "Authorization"
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    // Nombre del encabezado HTTP que contiene el token
-    private static final String AUTH_HEADER =  "Authorization";
+	// Nombre del encabezado HTTP que contiene el token
+	private static final String AUTH_HEADER = "Authorization";
 
-    // Prefijo del token JWT
-    private static final String BEARER_PREFIX = "Bearer ";
+	// Prefijo del token JWT
+	private static final String BEARER_PREFIX = "Bearer ";
 
-    private final JwtService jwtService;
+	private final JwtService jwtService;
 
-    private final UserDetailsServiceImpl userDetailsService;
+	private final UserDetailsServiceImpl userDetailsService;
 
-    // Método principal que procesa cada solicitud HTTP
-    // Extrae el token JWT, lo valida y establece la autenticación en el contexto de seguridad
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
-        // Extrae el token del encabezado
-        String token = extractToken(request.getHeader(AUTH_HEADER));
+	// Método principal que procesa cada solicitud HTTP
+	// Extrae el token JWT, lo valida y establece la autenticación en el contexto de
+	// seguridad
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
+		// Extrae el token del encabezado
+		String token = extractToken(request.getHeader(AUTH_HEADER));
 
-        // Si hay token y no hay una autenticación previa, autentica al usuario
-        if (token != null && !isAuthenticationPresent()){
-            authenticationUser(token, request);
-        }
+		// Si hay token y no hay una autenticación previa, autentica al usuario
+		if (token != null && !isAuthenticationPresent()) {
+			authenticationUser(token, request);
+		}
 
-        // Continua con la cadena de filtros
-        filterChain.doFilter(request, response);
-    }
+		// Continua con la cadena de filtros
+		filterChain.doFilter(request, response);
+	}
 
-    // Extrae el token del encabezado.
-    private String extractToken(String authHeader){
-        if (isBearerToken(authHeader)){
-            return authHeader.substring(BEARER_PREFIX.length()); // Elimina "Bearer " para obtener el token puro
-        }
-        return null;
-    }
+	// Extrae el token del encabezado.
+	private String extractToken(String authHeader) {
+		if (isBearerToken(authHeader)) {
+			return authHeader.substring(BEARER_PREFIX.length()); // Elimina "Bearer " para
+																	// obtener el token
+																	// puro
+		}
+		return null;
+	}
 
-    // Verifica si el encabezado de autorización contiene un token Bearer
-    private boolean isBearerToken(String authHeader){
-        return authHeader != null && authHeader.startsWith(BEARER_PREFIX);
-    }
+	// Verifica si el encabezado de autorización contiene un token Bearer
+	private boolean isBearerToken(String authHeader) {
+		return authHeader != null && authHeader.startsWith(BEARER_PREFIX);
+	}
 
-    // Verifica si ya existe una autenticación en el contexto de seguridad
-    private boolean isAuthenticationPresent(){
-        return SecurityContextHolder.getContext().getAuthentication() != null;
-    }
+	// Verifica si ya existe una autenticación en el contexto de seguridad
+	private boolean isAuthenticationPresent() {
+		return SecurityContextHolder.getContext().getAuthentication() != null;
+	}
 
-    // Autentica al usuario basado en el token JWT
-    private void authenticationUser(String token, HttpServletRequest request){
-        // Extra el nombre del usuario del token
-        String extractedUsername = jwtService.extractUsername(token);
+	// Autentica al usuario basado en el token JWT
+	private void authenticationUser(String token, HttpServletRequest request) {
+		// Extra el nombre del usuario del token
+		String extractedUsername = jwtService.extractUsername(token);
 
-        // Si el token contiene un username y es valido para ese usuario, establece la autenticacion en el contexto de spring security
-        if (extractedUsername != null && jwtService.isValid(token, userDetailsService.loadUserByUsername(extractedUsername))){
-            setAuthentication(userDetailsService.loadUserByUsername(extractedUsername), request);
-        }
-    }
+		// Si el token contiene un username y es valido para ese usuario, establece la
+		// autenticacion en el contexto de spring security
+		if (extractedUsername != null
+				&& jwtService.isValid(token, userDetailsService.loadUserByUsername(extractedUsername))) {
+			setAuthentication(userDetailsService.loadUserByUsername(extractedUsername), request);
+		}
+	}
 
-    // Establece la autenticacion en el contexto de seguridad de Spring
-    private void setAuthentication(UserDetails userDetails, HttpServletRequest request){
-        // Crea un token de autenticacion Spring con usuario cedenciales y roles/permisos de usuario
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                userDetails,
-                null,
-                userDetails.getAuthorities());
+	// Establece la autenticacion en el contexto de seguridad de Spring
+	private void setAuthentication(UserDetails userDetails, HttpServletRequest request) {
+		// Crea un token de autenticacion Spring con usuario cedenciales y roles/permisos
+		// de usuario
+		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null,
+				userDetails.getAuthorities());
 
-        // Añade detalles de la solicitud(Ip, agente de usuario, etc.)
-        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+		// Añade detalles de la solicitud(Ip, agente de usuario, etc.)
+		authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-        // Guarda la autenticación en el contexto de seguridad
-        SecurityContextHolder.getContext().setAuthentication(authToken);
-    }
+		// Guarda la autenticación en el contexto de seguridad
+		SecurityContextHolder.getContext().setAuthentication(authToken);
+	}
+
 }

@@ -15,11 +15,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PurchaseFindAllServiceImpl implements PurchaseFindAllService {
 
-    private final PurchaseJpaRepository purchaseJpaRepository;
+	private final PurchaseJpaRepository purchaseJpaRepository;
 
-    @Override
-    public List<Purchase> findAllPurchases() {
-        return purchaseJpaRepository.findAll();
-    }
+	@Override
+	public List<Purchase> findAllPurchases() {
+		return purchaseJpaRepository.findAll();
+	}
 
 }

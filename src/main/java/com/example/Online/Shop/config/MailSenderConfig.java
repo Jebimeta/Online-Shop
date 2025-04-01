@@ -15,9 +15,10 @@ public class MailSenderConfig {
 
 	private final OnlineShopProperties properties;
 
-	@Bean  // Indica que este método produce un bean gestionado por el contenedor de Spring
+	@Bean // Indica que este método produce un bean gestionado por el contenedor de Spring
 	public JavaMailSender getJavaMailSender() {
-		// Crea una nueva instancia de JavaMailSenderImpl (implementación de JavaMailSender)
+		// Crea una nueva instancia de JavaMailSenderImpl (implementación de
+		// JavaMailSender)
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
 		// Configura el servidor SMTP (en este caso, el de Gmail)
@@ -26,10 +27,12 @@ public class MailSenderConfig {
 		// Establece el puerto SMTP (587 es el puerto común para TLS)
 		mailSender.setPort(587);
 
-		// Establece el nombre de usuario para la autenticación SMTP (obtenido de las propiedades)
+		// Establece el nombre de usuario para la autenticación SMTP (obtenido de las
+		// propiedades)
 		mailSender.setUsername(properties.getMail().getUsername());
 
-		// Establece la contraseña para la autenticación SMTP (obtenido de las propiedades)
+		// Establece la contraseña para la autenticación SMTP (obtenido de las
+		// propiedades)
 		mailSender.setPassword(properties.getMail().getPassword());
 
 		// Obtiene las propiedades de configuración adicionales para JavaMail
@@ -62,4 +65,5 @@ public class MailSenderConfig {
 		// Devuelve el objeto JavaMailSender configurado
 		return mailSender;
 	}
+
 }

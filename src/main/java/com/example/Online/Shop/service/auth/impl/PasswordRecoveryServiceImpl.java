@@ -15,25 +15,27 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PasswordRecoveryServiceImpl implements PasswordRecoveryService {
 
-    private final CustomerUpdateService customerUpdateService;
+	private final CustomerUpdateService customerUpdateService;
 
-    private final MailSenderService mailSenderService;
+	private final MailSenderService mailSenderService;
 
-    private final CustomerVerificationTokenService customerVerificationTokenService;
+	private final CustomerVerificationTokenService customerVerificationTokenService;
 
-    @Override
-    // Envia un correo para la recuperación de la contraseña
-    public EmailResponse sendEmailToRecoveryPassword(PasswordResetRequest passwordResetRequest) {
-        return mailSenderService.sendPasswoerdRecoveryEmail(passwordResetRequest.getEmail());
-    }
+	@Override
+	// Envia un correo para la recuperación de la contraseña
+	public EmailResponse sendEmailToRecoveryPassword(PasswordResetRequest passwordResetRequest) {
+		return mailSenderService.sendPasswoerdRecoveryEmail(passwordResetRequest.getEmail());
+	}
 
-    @Override
-    // Confirma la recuperación de contraseña
-    public Customer confirmRecoveryPassword(PasswordResetConfirmRequest passwordResetConfirmRequest) {
-        Customer customer = customerVerificationTokenService.findCustomerByVerification(passwordResetConfirmRequest.getVerificationToken());
-        customer.setPassword(passwordResetConfirmRequest.getNewPassword());
-        customerUpdateService.updateCustomer(customer);
+	@Override
+	// Confirma la recuperación de contraseña
+	public Customer confirmRecoveryPassword(PasswordResetConfirmRequest passwordResetConfirmRequest) {
+		Customer customer = customerVerificationTokenService
+			.findCustomerByVerification(passwordResetConfirmRequest.getVerificationToken());
+		customer.setPassword(passwordResetConfirmRequest.getNewPassword());
+		customerUpdateService.updateCustomer(customer);
 
-        return customer;
-    }
+		return customer;
+	}
+
 }

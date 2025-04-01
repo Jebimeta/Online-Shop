@@ -8,13 +8,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailResponseFactory {
 
-    private EmailResponseFactory() {
-        log.info("You cannot use EmailResponseFactroy constructor because is private");
-    }
+	private EmailResponseFactory() {
+		log.info("You cannot use EmailResponseFactroy constructor because is private");
+	}
 
-    public static EmailResponse createEmailResponse(String message){
-        EmailResponse emailResponse = new EmailResponse();
-        emailResponse.setMessage(message);
-        return emailResponse;
-    }
+	public static EmailResponse createEmailResponse(String message) {
+		EmailResponse emailResponse = new EmailResponse();
+		emailResponse.setMessage(message);
+		return emailResponse;
+	}
+
 }

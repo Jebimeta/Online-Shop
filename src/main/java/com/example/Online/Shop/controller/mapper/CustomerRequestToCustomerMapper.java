@@ -9,6 +9,6 @@ import org.springframework.core.convert.converter.Converter;
 @Mapper(componentModel = "spring")
 public interface CustomerRequestToCustomerMapper extends Converter<CustomerRequest, Customer> {
 
-    Customer convert(@NonNull CustomerRequest source);
+	Customer convert(@NonNull CustomerRequest source);
 
 }

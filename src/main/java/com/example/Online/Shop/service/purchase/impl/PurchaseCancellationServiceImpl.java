@@ -14,33 +14,34 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PurchaseCancellationServiceImpl implements PurchaseCancellationService {
 
-    private final PurchaseQueryService purchaseQueryService;
+	private final PurchaseQueryService purchaseQueryService;
 
-    @Override
-    @Transactional
-    // Cancela la compra
-    public Purchase cancelPurchaseById(Long id) {
-        log.info("Init - PurchaseCancellationServiceImpl -> cancelPurchaseById()");
-        Purchase obtainedPurchase = purchaseQueryService.findPurchaseById(id);
-        changeStatus(obtainedPurchase, StatusEnum.CANCELLATION_PENDING);
-        log.info("End - PurchaseCancellationServiceImpl -> cancelPurchaseById");
-        return obtainedPurchase;
-    }
+	@Override
+	@Transactional
+	// Cancela la compra
+	public Purchase cancelPurchaseById(Long id) {
+		log.info("Init - PurchaseCancellationServiceImpl -> cancelPurchaseById()");
+		Purchase obtainedPurchase = purchaseQueryService.findPurchaseById(id);
+		changeStatus(obtainedPurchase, StatusEnum.CANCELLATION_PENDING);
+		log.info("End - PurchaseCancellationServiceImpl -> cancelPurchaseById");
+		return obtainedPurchase;
+	}
 
-    @Override
-    // Confirma la cancelación de una compra cambiando su estado a CANCELLED
-    public Purchase cancelPurchaseConfirmationById(Long id) {
-        log.info("Init - PurchaseCancellationServiceImpl -> cancelPurchaseConfirmationById()");
-        Purchase obtainedPurchase = purchaseQueryService.findPurchaseById(id);
-        changeStatus(obtainedPurchase, StatusEnum.CANCELLED);
-        log.info("End - PurchaseCancellationServiceImpl -> cancelPurchaseConfirmationById");
-        return obtainedPurchase;
-    }
+	@Override
+	// Confirma la cancelación de una compra cambiando su estado a CANCELLED
+	public Purchase cancelPurchaseConfirmationById(Long id) {
+		log.info("Init - PurchaseCancellationServiceImpl -> cancelPurchaseConfirmationById()");
+		Purchase obtainedPurchase = purchaseQueryService.findPurchaseById(id);
+		changeStatus(obtainedPurchase, StatusEnum.CANCELLED);
+		log.info("End - PurchaseCancellationServiceImpl -> cancelPurchaseConfirmationById");
+		return obtainedPurchase;
+	}
 
-    // Cambia el estado de la compra
-    private void changeStatus(Purchase purchase, StatusEnum status) {
-        log.info("Init - PurchaseCancellationServiceImpl -> changeStatus()");
-        purchase.setStatus(status);
-        log.info("End - PurchaseCancellationServiceImpl -> changeStatus");
-    }
+	// Cambia el estado de la compra
+	private void changeStatus(Purchase purchase, StatusEnum status) {
+		log.info("Init - PurchaseCancellationServiceImpl -> changeStatus()");
+		purchase.setStatus(status);
+		log.info("End - PurchaseCancellationServiceImpl -> changeStatus");
+	}
+
 }

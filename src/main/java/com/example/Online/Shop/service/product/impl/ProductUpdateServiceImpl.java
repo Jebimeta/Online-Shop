@@ -12,19 +12,21 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProductUpdateServiceImpl implements ProductUpdateService {
 
-    private final ProductJpaRepository productJpaRepository;
+	private final ProductJpaRepository productJpaRepository;
 
-    @Override
-    public Product updateProduct(Long id, Product product) {
-        log.info("Init - ProductUpdateServiceImpl -> updateProduct()");
-        product.setId(id);
-        // Con getReferenceById apunta hacia el producto pero no lo busca hasta que hace falta por lo que es más rapido que findById.
-        Product requestProduct = productJpaRepository.getReferenceById(id);
-        if (product.getId().equals(requestProduct.getId())){
-            Product updateProduct = productJpaRepository.save(product);
-            log.info("End - ProductUpdateServiceImpl -> updateProduct");
-            return updateProduct;
-        }
-        return null;
-    }
+	@Override
+	public Product updateProduct(Long id, Product product) {
+		log.info("Init - ProductUpdateServiceImpl -> updateProduct()");
+		product.setId(id);
+		// Con getReferenceById apunta hacia el producto pero no lo busca hasta que hace
+		// falta por lo que es más rapido que findById.
+		Product requestProduct = productJpaRepository.getReferenceById(id);
+		if (product.getId().equals(requestProduct.getId())) {
+			Product updateProduct = productJpaRepository.save(product);
+			log.info("End - ProductUpdateServiceImpl -> updateProduct");
+			return updateProduct;
+		}
+		return null;
+	}
+
 }

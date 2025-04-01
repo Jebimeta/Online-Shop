@@ -8,6 +8,6 @@ import org.springframework.core.convert.converter.Converter;
 @Mapper(componentModel = "spring")
 public interface PurchaseToPurchaseResponseMapper extends Converter<Purchase, PurchaseResponse> {
 
-    PurchaseResponse convert(Purchase source);
+	PurchaseResponse convert(Purchase source);
 
 }

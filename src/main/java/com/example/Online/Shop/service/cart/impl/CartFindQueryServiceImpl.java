@@ -22,42 +22,42 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartFindQueryServiceImpl {
 
-    private final ProductJpaRepository productJpaRepository;
+	private final ProductJpaRepository productJpaRepository;
 
-    private final CartJpaRepository cartJpaRepository;
+	private final CartJpaRepository cartJpaRepository;
 
-    private final AuthenticationService authenticationService;
+	private final AuthenticationService authenticationService;
 
-    public Product findProductById(CartDetailsRequest details) {
-        return productJpaRepository.findById(details.getProductId()).orElseThrow(() -> {
-            log.error(AppErrorCode.ERROR_PRODUCT_NOT_FOUND.getMessage());
-            return new BusinessException(AppErrorCode.ERROR_PRODUCT_NOT_FOUND);
-        });
-    }
+	public Product findProductById(CartDetailsRequest details) {
+		return productJpaRepository.findById(details.getProductId()).orElseThrow(() -> {
+			log.error(AppErrorCode.ERROR_PRODUCT_NOT_FOUND.getMessage());
+			return new BusinessException(AppErrorCode.ERROR_PRODUCT_NOT_FOUND);
+		});
+	}
 
-    @Transactional
-    public Cart findCartById(Long id) {
-        Cart cart = cartJpaRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(AppErrorCode.ERROR_CART_NOT_FOUND));
-        return checkCartInCustomerCart(cart);
-    }
+	@Transactional
+	public Cart findCartById(Long id) {
+		Cart cart = cartJpaRepository.findById(id)
+			.orElseThrow(() -> new BusinessException(AppErrorCode.ERROR_CART_NOT_FOUND));
+		return checkCartInCustomerCart(cart);
+	}
 
-    private Cart checkCartInCustomerCart(Cart cart) {
-        List<Cart> customerCarts = getCustomerCarts();
-        validateCartInCustomerCarts(cart, customerCarts);
-        return cart;
-    }
+	private Cart checkCartInCustomerCart(Cart cart) {
+		List<Cart> customerCarts = getCustomerCarts();
+		validateCartInCustomerCarts(cart, customerCarts);
+		return cart;
+	}
 
-    private List<Cart> getCustomerCarts() {
-        List<Cart> customerCarts = authenticationService.findUserByTokenAccess().getCart();
-        return customerCarts != null ? customerCarts : Collections.emptyList();
-    }
+	private List<Cart> getCustomerCarts() {
+		List<Cart> customerCarts = authenticationService.findUserByTokenAccess().getCart();
+		return customerCarts != null ? customerCarts : Collections.emptyList();
+	}
 
-    private void validateCartInCustomerCarts(Cart cart, List<Cart> customerCarts) {
-        if (!customerCarts.contains(cart)) {
-            log.error(AppErrorCode.ERROR_UNFORBIDDEN_CART.getMessage());
-            throw new BusinessException(AppErrorCode.ERROR_UNFORBIDDEN_CART);
-        }
-    }
+	private void validateCartInCustomerCarts(Cart cart, List<Cart> customerCarts) {
+		if (!customerCarts.contains(cart)) {
+			log.error(AppErrorCode.ERROR_UNFORBIDDEN_CART.getMessage());
+			throw new BusinessException(AppErrorCode.ERROR_UNFORBIDDEN_CART);
+		}
+	}
 
 }

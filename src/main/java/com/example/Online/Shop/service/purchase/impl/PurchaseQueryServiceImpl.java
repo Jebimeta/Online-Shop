@@ -20,36 +20,37 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PurchaseQueryServiceImpl implements PurchaseQueryService {
 
-    private final PurchaseJpaRepository purchaseJpaRepository;
+	private final PurchaseJpaRepository purchaseJpaRepository;
 
-    private final AuthenticationService authenticationService;
+	private final AuthenticationService authenticationService;
 
-    @Override
-    @Transactional
-    public Purchase findPurchaseById(Long purchasedId) {
-        Purchase purchase = purchaseJpaRepository.findById(purchasedId)
-                .orElseThrow(() -> new BusinessException(AppErrorCode.ERROR_CART_NOT_FOUND));
-        return checkPurchaseInCustomerPurchase(purchase);
-    }
+	@Override
+	@Transactional
+	public Purchase findPurchaseById(Long purchasedId) {
+		Purchase purchase = purchaseJpaRepository.findById(purchasedId)
+			.orElseThrow(() -> new BusinessException(AppErrorCode.ERROR_CART_NOT_FOUND));
+		return checkPurchaseInCustomerPurchase(purchase);
+	}
 
-    // Verifica si una compra pertenece a la compra de un cliente autenticado
-    private Purchase checkPurchaseInCustomerPurchase(Purchase purchase){
-        List<Purchase> customerPurchases = getCustomerPurchases();
-        validatePurchaseInCustomerPurchases(purchase, customerPurchases);
-        return purchase;
-    }
+	// Verifica si una compra pertenece a la compra de un cliente autenticado
+	private Purchase checkPurchaseInCustomerPurchase(Purchase purchase) {
+		List<Purchase> customerPurchases = getCustomerPurchases();
+		validatePurchaseInCustomerPurchases(purchase, customerPurchases);
+		return purchase;
+	}
 
-    // Obtiene la compra del cliente autenticado
-    private List<Purchase> getCustomerPurchases(){
-        List<Purchase> customerPurchases = authenticationService.findUserByTokenAccess().getPurchases();
-        return customerPurchases != null ? customerPurchases : Collections.emptyList();
-    }
+	// Obtiene la compra del cliente autenticado
+	private List<Purchase> getCustomerPurchases() {
+		List<Purchase> customerPurchases = authenticationService.findUserByTokenAccess().getPurchases();
+		return customerPurchases != null ? customerPurchases : Collections.emptyList();
+	}
 
-    // Valida que una compra esté en la lista de compra del cliente
-    private void validatePurchaseInCustomerPurchases(Purchase purchase, List<Purchase> customerPurchase){
-        if(!customerPurchase.contains(purchase)){
-            log.error(AppErrorCode.ERROR_UNFORBIDDEN_PURCHASE.getMessage());
-            throw new BusinessException(AppErrorCode.ERROR_UNFORBIDDEN_PURCHASE);
-        }
-    }
+	// Valida que una compra esté en la lista de compra del cliente
+	private void validatePurchaseInCustomerPurchases(Purchase purchase, List<Purchase> customerPurchase) {
+		if (!customerPurchase.contains(purchase)) {
+			log.error(AppErrorCode.ERROR_UNFORBIDDEN_PURCHASE.getMessage());
+			throw new BusinessException(AppErrorCode.ERROR_UNFORBIDDEN_PURCHASE);
+		}
+	}
+
 }

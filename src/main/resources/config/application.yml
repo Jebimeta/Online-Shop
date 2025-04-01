@@ -1,0 +1,74 @@
+management:
+  server:
+    port: 8080
+logging:
+    level:
+        com.example: debug
+
+spring:
+  application:
+    name: '@project.artifactId@'
+    version: '@project.version@'
+  datasource:
+    url: jdbc:mysql://localhost:3306/your_database_name
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
+    default-encoding: UTF-8
+  web:
+    resources:
+      static-locations: classpath:/static/, file:C:/Users/MiJoze/Desktop/Online Shop/src/main/resources/static/products/images/
+    servlet:
+      multipart:
+        max-file-size: 10MB
+        max-request-size: 10MB
+
+onlineshop:
+  upload:
+    directory: src/main/resources/static/products/images/
+    baseUrl: http://localhost:8080/products/images/
+    localDirectory: C:/Users/MiJoze/Desktop/Online Shop/src/main/resources/static/products/images/
+  mail:
+    hostEmail: meldewhat@gmail.com
+    host: http://localhost:4200
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+  security:
+    jwt:
+      secretKey: 4bb6d1dfbafb64a681139d1586b6f1160d18159afd57c8c79136d7490630407c
+      accessTokenExpiration: 86400000
+      refreshTokenExpiration: 604800000
+
+springdoc:
+  api-docs:
+    title: "Online Shop API"
+    description: "Aplication que se encarga de habilitar endpoints para el consumo REST de la base de datos en la tienda online"
+    version: "OPENAPI 3.0"
+    contact:
+      name: "José Marchena Roldán"
+      email: "jmarchenaroldan@outlook.es"
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
